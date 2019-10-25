@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>出牌</title>
+<style>
+	#quitgame{
+	border-radius: 18px;
+	color:maroon;
+	font-size: 22pt;
+	height: 50px;
+	width: 150px;
+	text-align:center;
+	margin-left:820px;
+	margin-top:20px;
+	}
+	body{
+		width:1000px;
+		height: 560px;
+		background:url("gamebegin20191023162444.png");
+	    background-repeat: no-repeat;
+	}	
+</style>	
+</head>
+
+<body>
+	<button type="button" id="quitgame" onclick="javascript:window.location.href='首页.html'">退出游戏</button>
+	<div id="div1">
+		
+	</div>
+
+<script>
+window.onload()=function(){
+			var data = JSON.stringify({
+                "username": document.getElementById("username").value,
+                "password": document.getElementById("password").value
+            })
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var json=JSON.parse(xhr.responseText);
+                    console.log(xhr.responseText);
+					var str=json.data.card.split(" ");
+					for(var i=0;i<str.length;i++)
+					{
+						
+						
+					}
+                }
+            }
+            xhr.open("POST", "http://api.revth.com/game/submit",true);
+			xhr.setRequestHeader("x-auth-token",localStorage.getItem("token")); 
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send();
+}
+}
+
+  </script>
+</body>
+</html>

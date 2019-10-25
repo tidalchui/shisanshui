@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>首页</title>
+<style>
+#quit{
+	border-radius: 18px;
+	color:maroon;
+	font-size: 22pt;
+	height: 50px;
+	width: 150px;
+	text-align:center;
+	margin-left:820px;
+	margin-top:20px;
+	}
+#gamebegin{
+	border-radius: 12px;
+	font-size: 25pt;
+	text-align: center;
+	height: 50px;
+	width: 180px;
+	text-align:center;
+	margin-left:60px;
+	margin-top:150px;
+	}
+#ranking{
+	border-radius: 12px;
+	font-size: 25pt;
+	text-align: center;
+	height: 50px;
+	width: 180px;
+	text-align:center;
+	margin-left:150px;
+	margin-top:150px;
+	}	
+#history{
+	border-radius: 12px;
+	font-size: 25pt;
+	text-align: center;
+	height: 50px;
+	width: 180px;
+	text-align:center;
+	margin-left:150px;
+	margin-top:150px;
+	}
+
+.bg{
+	background-image: url("shouye20191012234055.png");
+	backgroung-repeat:no-repeat;
+	width:1024px;
+	height:576px;
+	}	
+</style>
+</head>
+
+<body>
+<div class="bg">
+	<a href="登陆界面.html"><button type="button" id="quit" onClick="my()">注销账号</button></a>
+	
+	<a href="开启战局.html"><button type="button" id="gamebegin" onClick="">开始游戏</button></a>
+	<a href="排行榜.html"><button type="button" id="ranking" onClick="">排行榜</button></a>
+	<a href="历史记录.html"><button type="button" id="history" onClick="">历史记录</button></a>
+	</div>
+<script>
+	function my() {
+        var xhr=new XMLHttpRequest();
+        xhr.onreadystatechange=function () {
+            if(xhr.readyState==4&&xhr.status==200){
+                alert(xhr.responseText);
+                window.location.href="登陆界面.html";
+            }
+        }
+        xhr.open("POST", "http://api.revth.com/auth/logout");
+        xhr.setRequestHeader("x-auth-token", localStorage.getItem("token"));
+        xhr.send();
+    }
+</script>	
+	
+	
+</body>
+</html>

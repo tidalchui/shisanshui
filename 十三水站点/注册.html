@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>注册</title>
+<style>
+	#reg{
+		background-color:whitesmoke;
+		margin-left: 380px;
+		margin-top: 200px;
+		color:black;
+		width: 300px;
+	}
+	body{
+		background:url("QQ图片20191003113621.jpg");
+	    background-repeat: no-repeat;
+	}
+</style>
+</head>
+
+<body>
+	
+	<div id="reg">		
+	<form id="registerform" action="">
+	<fieldset>
+    <legend>注册框:</legend>
+	用户名:<input type="text" id="username" value=""><br>
+	密 &nbsp;码: 
+	<input type="text" id="password" value=""><br>
+	学 &nbsp;号: 
+	<input type="text" id="student_number" value=""><br>
+	教务处密码:<input type="text" id="student_password" value=""><br>
+	<input type="button" value="绑定注册" onclick="register()"/>
+	</fieldset>
+	</form>
+	</div>
+
+<script>
+ function register() {
+        if(document.getElementById("username").value=="" || document.getElementById("password").value=="")
+        {alert("账号和密码不能为空");return ;}
+        else{
+            var data = JSON.stringify({
+                "username": document.getElementById("username").value,
+                "password": document.getElementById("password").value,
+				"student_number":document.getElementById("student_number").value,
+				"student_password":document.getElementById("student_password").value
+            });
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var json=JSON.parse(xhr.responseText);
+                    alert("注册绑定成功");
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("user_id");
+                    localStorage.setItem("token",json.data.token);
+                    localStorage.setItem("user_id",json.data.user_id);
+                    window.location.href='登陆界面.html';
+                    console.log(xhr.responseText);
+                }
+            }
+            xhr.open("POST", "http://api.revth.com/auth/register2",true);
+            xhr.setRequestHeader("content-type", "application/json");
+            xhr.send(data);
+        }
+    }
+</script>	
+<!--
+<script>
+	(function ($) {
+    $.fn.serializeJson = function () {
+        var serializeObj = {};
+        var array = this.serializeArray();
+        var str = this.serialize();
+        $(array).each(function () {
+            if (serializeObj[this.name]) {
+                if ($.isArray(serializeObj[this.name]) && this.value != "") {
+                    serializeObj[this.name].push(this.value);
+                } else {
+                    if (this.value != "") {
+                        serializeObj[this.name] = [serializeObj[this.name], this.value];
+                    }
+                }
+            } else {
+                if (this.value != "") {
+                    serializeObj[this.name] = this.value;
+                }
+            }
+        });
+        return serializeObj;
+    };
+})(jQuery);                       //问题
+
+function register() {
+    var reg_data = ($('#reg_form').serializeJson());       //问题
+    if (reg_data.username == " " || reg_data.password == " ") {
+        alert("用户名或密码不能为空");
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "http://api.revth.com/auth/register2",
+        data: JSON.stringify(reg_data), //提交的数据
+        contentType: "application/json",
+        success: function (result) { //todo
+            console.log(result); //打印服务端返回的数据(调试用)
+            if (result.status == 0) {
+                alert("注册成功");
+                window.location.href = '登陆界面.html'
+            };
+        },
+        error: function (jqXHR, textStatus, errorThrownt) {
+
+            var responseText = jQuery.parseJSON(jqXHR.responseText);
+            if (responseText.status == 1001) {
+                alert("用户名已被使用");
+            };
+            if (responseText.status == 1002) {
+                alert("学号已绑定");
+            };
+            if (responseText.status == 1003) {
+                alert("教务处认证失败");
+            }
+        }
+    });
+}
+</script>	
+-->
+	
+</body>
+</html>

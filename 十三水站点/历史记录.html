@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>历史记录</title>
+<style>
+	#quit{
+	border-radius: 18px;
+	color:maroon;
+	font-size: 22pt;
+	height: 50px;
+	width: 150px;
+	text-align:center;
+	margin-left:820px;
+	margin-top:20px;
+	}
+	#search{
+	margin-left: 270px;	
+	margin-top: 50px;
+	}	
+	#thistable{
+	margin-top: 20px;
+	text-align: center;	
+	}
+	.bg{
+	background-image: url("history20191014202430.png");
+	background-repeat:no-repeat;
+	width:1024px;
+	height:576px;
+	}
+
+</style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+<div class="bg">
+	<a href="首页.html"><button type="button" id="quit" onclick="">返回首页</button></a>
+	
+	<div id="search">
+	请输入你要查询的战局ID:
+	<input type="text" id="changhao" value="">
+	<button type="button" id="ask" value="">查询</button>
+	</div>
+	
+<!--
+	<script>
+		document.getElementById("ask").onclick=function(){
+			if(window.localStorage){
+				localStorage.value=document.getElementById("changhao").value;
+				location.href="详细对战情况.html";
+				
+			}else{
+				alert("传值失败")
+			}
+		}
+		
+	</script>
+-->
+	
+		
+	<table id="thistable" align="center" border="1" width="500" >
+		<tr>
+			<th>id</th>
+			<th>card</th>
+			<th>score</th>
+			<th>timestamp</th>
+        </tr>
+		<tbody id="demo">
+			
+		</tbody>
+		
+	</table>
+<div>	
+<script>
+ 		var x=0;
+        function add(){document.getElementById("thistable").innerHTML=null;x++;my(); }
+        function dec(){if(x>0){document.getElementById("thistable").innerHTML=null;x--;my();}}
+        function my(){
+            var obj;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4&&xhr.status==200){
+                    var json=xhr.responseText;
+                    console.log(json);
+                    obj=JSON.parse(xhr.responseText);
+                    if(obj.data==""){alert("玩家您无历史战绩或历史记录已全部显示")}
+                    function getJsonLength(json){
+                        var l=0;
+                        for(var j in json.data){
+
+                            document.getElementById("thistable").innerHTML+='<tr><td style="width: 8%">'+json.data[l].id+'</td><td style="width: 66%;">'
+                                +json.data[l].card+'</td><td style="width: 10%">'+json.data[l].score+'</td><td style="width: 21%">'+json.data[l].timestamp+'</td></tr>';
+                            l++;
+                        }
+                    }
+                    getJsonLength(obj);
+                }
+            }
+            xhr.open("GET", "http://api.revth.com/history?page="+x+"&limit=15&player_id="+localStorage.getItem("user_id"),true);
+            xhr.setRequestHeader("X-Auth-Token",localStorage.getItem("token"));
+            xhr.send();
+        }
+</script>
+     		
+	
+	
+	<!--
+	var obj;
+	var data = JSON.stringify({
+                "player_id": 39,
+                "limit": 20,
+				"page": 0
+            });
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4&&xhr.status==200){
+			var obj=xhr.responseText;
+			obj=JSON.parse(xhr.responseText);
+			console.log(obj);
+			function getJsonLength(obj){
+				var jsonLength=0;
+				for(var i in obj){
+					var j=jsonLength;
+					document.getElementById("mytbody2").innerHTML+='<tr><td>'+i.data.id+'</td><td>'+i.card+'</td><td>'+i.score+'</td><td>'+i.timestamp+'</td></tr>';
+					jsonLength++;
+				}
+			}
+			getJsonLength(obj);
+		}
+	}
+	xhr.open("GET","http://api.revth.com/history",true);
+	xhr.setRequestHeader("x-auth-token",localStorage.getItem("token"));
+	xhr.send(data); 
+ }		
+-->	
+	
+
+</body>
+</html>
