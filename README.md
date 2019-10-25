@@ -1,9 +1,4 @@
-#### 徽章
-
 ![]( https://img.shields.io/badge/Language-Python-yellow )
-
-#### 代码质量评分及徽章（要求达到A）
-
 ![](https://img.shields.io/badge/codequality-A-green )
 
 #### 运行环境（1分）
