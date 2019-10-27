@@ -1,5 +1,5 @@
 ![]( https://img.shields.io/badge/Language-Python-yellow )
-![]([![Codacy Badge](https://api.codacy.com/project/badge/Grade/822d3984cc9e4fafa737b969fb9d31d5)](https://www.codacy.com/manual/tidalchui/shisanshui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tidalchui/shisanshui&amp;utm_campaign=Badge_Grade) )
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/822d3984cc9e4fafa737b969fb9d31d5)](https://www.codacy.com/manual/tidalchui/shisanshui?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tidalchui/shisanshui&amp;utm_campaign=Badge_Grade)
 
 #### 运行环境（1分）
 
